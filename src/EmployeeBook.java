@@ -8,6 +8,19 @@ public class EmployeeBook {
         this.employees = employees;
     }
 
+    public EmployeeBook(boolean example) {
+        if (!example)
+            this.employees = new HashMap<String, Employee>();
+        else {
+            this.employees = new HashMap<String, Employee>();
+            employees.put("Ivanov Ivan Ivanovich", new Employee("Ivanov Ivan Ivanovich", 35000, 1));
+            employees.put("Petrov Mischele", new Employee("Petrov Mischele", 45000, 1));
+            employees.put("Brown Freen Petrovich", new Employee("Brown Freen Petrovich", 55000, 2));
+            employees.put("Frey Ivan", new Employee("Frey Ivan", 135000, 4));
+            employees.put("Grey White Lee", new Employee("Grey White Lee", 325000, 3));
+        }
+    }
+
     public void addEmployee(Employee employee){
         if(employees.containsKey(employee.getFullName())){
             System.out.println("Сотрудник уже добавлен");
@@ -22,7 +35,6 @@ public class EmployeeBook {
             System.out.println("Сотрудник отсутствует");
             return;
         }
-
         employees.remove(employee.getFullName());
     }
 
@@ -40,10 +52,6 @@ public class EmployeeBook {
 
     public void printEmployeesByDepartments(){
 
-        Set<Integer> numberDepartments = new HashSet<>();
-        boolean isFindDepartment;
-        int count = 0;
-
         Map<Integer, List<Employee>> employeeDepartment = new HashMap<>();
 
         //получаем существующие отделы по списку сотрудников
@@ -60,13 +68,5 @@ public class EmployeeBook {
 
         for (Integer department : employeeDepartment.keySet())
             System.out.println("Сотрудники отдела " + department + "\\n" + employeeDepartment.get(department));
-
-    }
-
-    private boolean isFindDepartment(int[] numberDepartments, int department){
-        for (int i = 0; i < numberDepartments.length; i++)
-            if (numberDepartments[i] == department)
-                return true;
-        return false;
     }
 }

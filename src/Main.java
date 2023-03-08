@@ -1,12 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
-    private static final Employee[] employees = new Employee[10];
+    private static final EmployeeBook employeesBook = new EmployeeBook(true);
 
     public static void main(String[] args) {
-        employees[0] = new Employee("Ivanov Ivan Ivanovich", 35000, 1);
-        employees[2] = new Employee("Petrov Mischele", 45000, 1);
-        employees[3] = new Employee("Brown Freen Petrovich", 55000, 2);
-        employees[4] = new Employee("Frey Ivan", 135000, 4);
-        employees[5] = new Employee("Grey White Lee", 325000, 3);
 
         printEmployees();
         printSalary();
@@ -46,7 +44,7 @@ public class Main {
     }
 
     private static void printEmployees(){
-        for (Employee employee : employees){
+        for (Map<String,Employee> employee : employeesBook){
             if(employee == null)
                 continue;
             System.out.println(employee);
