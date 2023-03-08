@@ -29,15 +29,15 @@ public class Main {
         System.out.println("Демонстрация задач \"Очень сложно\"");
         employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich2", 35000, 1));
         employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich2", 35000, 1));
-        employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich", 35000, 1));
-        employeesBook.addEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
-        employeesBook.addEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
+        employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich3", 35000, 1));
+        employeesBook.addEmployee(new Employee("Brown Freen Petrovich2", 55000, 2));
+        employeesBook.addEmployee(new Employee("Brown Freen Petrovich3", 55000, 2));
         employeesBook.addEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
         employeesBook.printEmployeesByDepartments();
 
         employeesBook.removeEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
-        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich", 55000, 2);
-        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
+        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich2", 55000, 2));
+        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich3", 55000, 2));
         employeesBook.printEmployeesByDepartments();
 
     }

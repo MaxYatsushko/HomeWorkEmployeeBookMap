@@ -71,6 +71,6 @@ public class EmployeeBook {
         }
 
         for (Integer department : employeeDepartment.keySet())
-            System.out.println("Сотрудники отдела " + department + "\\n" + employeeDepartment.get(department));
+            System.out.println("Сотрудники отдела " + department + "\n" + employeeDepartment.get(department));
     }
 }
