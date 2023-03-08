@@ -1,12 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
-    private static final Employee[] employees = new Employee[10];
+    private static final EmployeeBook employeesBook = new EmployeeBook(true);
 
     public static void main(String[] args) {
-        employees[0] = new Employee("Ivanov Ivan Ivanovich", 35000, 1);
-        employees[2] = new Employee("Petrov Mischele", 45000, 1);
-        employees[3] = new Employee("Brown Freen Petrovich", 55000, 2);
-        employees[4] = new Employee("Frey Ivan", 135000, 4);
-        employees[5] = new Employee("Grey White Lee", 325000, 3);
 
         printEmployees();
         printSalary();
@@ -29,24 +27,23 @@ public class Main {
 
         //hard task
         System.out.println("Демонстрация задач \"Очень сложно\"");
-        EmployeeBook employeeBook = new EmployeeBook(10);
-        employeeBook.addEmployee(employees[0]);
-        employeeBook.addEmployee(employees[1]);
-        employeeBook.addEmployee(employees[2]);
-        employeeBook.addEmployee(employees[3]);
-        employeeBook.addEmployee(employees[4]);
-        employeeBook.addEmployee(employees[5]);
-        employeeBook.printEmployeesByDepartments();
+        employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich2", 35000, 1));
+        employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich2", 35000, 1));
+        employeesBook.addEmployee(new Employee("Ivanov Ivan Ivanovich3", 35000, 1));
+        employeesBook.addEmployee(new Employee("Brown Freen Petrovich2", 55000, 2));
+        employeesBook.addEmployee(new Employee("Brown Freen Petrovich3", 55000, 2));
+        employeesBook.addEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
+        employeesBook.printEmployeesByDepartments();
 
-        employeeBook.removeEmployee(employees[3]);
-        employeeBook.removeEmployee(employees[0]);
-        employeeBook.removeEmployee(employees[1]);
-        employeeBook.printEmployeesByDepartments();
+        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich", 55000, 2));
+        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich2", 55000, 2));
+        employeesBook.removeEmployee(new Employee("Brown Freen Petrovich3", 55000, 2));
+        employeesBook.printEmployeesByDepartments();
 
     }
 
     private static void printEmployees(){
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee == null)
                 continue;
             System.out.println(employee);
@@ -55,7 +52,7 @@ public class Main {
 
     private static void printSalary(){
         double totalSalary = 0;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee == null)
                 continue;
             totalSalary += employee.getSalary();
@@ -66,7 +63,7 @@ public class Main {
     private static void printEmployeeWithMinSalary(){
         double minSalary = Double.MAX_VALUE;
         Employee employeeWithMinSalary = null;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getSalary() < minSalary) {
                 employeeWithMinSalary = employee;
                 minSalary = employeeWithMinSalary.getSalary();
@@ -81,7 +78,7 @@ public class Main {
     private static void printEmployeeWithMaxSalary(){
         double maxSalary = Double.MIN_VALUE;
         Employee employeeWithMaxSalary = null;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getSalary() > maxSalary) {
                 employeeWithMaxSalary = employee;
                 maxSalary = employeeWithMaxSalary.getSalary();
@@ -96,7 +93,7 @@ public class Main {
     private static void printAverageSalary(){
         int numberEmployee = 0;
         double averageSalary = 0;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null) {
                 numberEmployee++;
                 averageSalary += employee.getSalary();
@@ -107,14 +104,14 @@ public class Main {
     }
 
     private static void printFullNames(){
-        for (Employee employee : employees)
+        for (Employee employee : employeesBook.getEmployees().values())
             if(employee != null)
                 System.out.println(employee.getFullName());
     }
 
     private static void printFullNames(int department){
         System.out.println("Сотрудники отдела:" + department);
-        for (Employee employee : employees)
+        for (Employee employee : employeesBook.getEmployees().values())
             if(employee != null && employee.getDepartment() == department)
                 System.out.println(employee.getFullName());
     }
@@ -126,13 +123,15 @@ public class Main {
         if (persent < 1 || persent > 100) {
             throw new RuntimeException("Процент введене не корректно. Процент должен быть в диапозоне 1 - 100");
         }
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null) {
                 double tempSalary = employee.getSalary();
                 employee.setSalary(tempSalary + tempSalary * (persent / 100));
                 flag = true;
+
             }
         }
+        //employeesBook.getEmployees().replaceAll((s, employee)-> employee.setSalary(employee.getSalary() + employee.getSalary() * (persent / 100)));
 
         if (flag)
             System.out.println("По всей компании зарплата проиденксирована на " + persent + "процентов");
@@ -146,7 +145,7 @@ public class Main {
         if (persent < 1 || persent > 100) {
             throw new RuntimeException("Процент введене не корректно. Процент должен быть в диапозоне 1 - 100");
         }
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getDepartment() == department) {
                 double tempSalary = employee.getSalary();
                 employee.setSalary(tempSalary + tempSalary * (persent / 100));
@@ -160,7 +159,7 @@ public class Main {
     private static void printEmployeeWithMinSalaryByDep(int department){
         double minSalary = Double.MAX_VALUE;
         Employee employeeWithMinSalary = null;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getSalary() < minSalary && employee.getDepartment() == department) {
                 employeeWithMinSalary = employee;
                 minSalary = employeeWithMinSalary.getSalary();
@@ -175,7 +174,7 @@ public class Main {
     private static void printEmployeeWithMaxSalaryByDep(int department){
         double maxSalary = Double.MIN_VALUE;
         Employee employeeWithMaxSalary = null;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getSalary() > maxSalary && employee.getDepartment() == department) {
                 employeeWithMaxSalary = employee;
                 maxSalary = employeeWithMaxSalary.getSalary();
@@ -190,7 +189,7 @@ public class Main {
     private static void printAverageSalary(int department){
         int numberEmployee = 0;
         double averageSalary = 0;
-        for (Employee employee : employees){
+        for (Employee employee : employeesBook.getEmployees().values()){
             if(employee != null && employee.getDepartment() == department) {
                 numberEmployee++;
                 averageSalary += employee.getSalary();
@@ -205,7 +204,7 @@ public class Main {
     private static void printEmployeeWithSalary(boolean lessSalary, double salary) {
 
         System.out.println("Сотрудники с заплатой " + (lessSalary ? "меньше " : "больше или равно ") + salary);
-        for (Employee employee : employees) {
+        for (Employee employee : employeesBook.getEmployees().values()) {
             if (employee != null && ((lessSalary && employee.getSalary() < salary) || (!lessSalary && employee.getSalary() >= salary))) {
                 System.out.println(employee.toStringWithoutDepartment());
             }

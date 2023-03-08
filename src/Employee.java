@@ -47,11 +47,11 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Double.compare(employee.salary, salary) == 0 && department == employee.department && id == employee.id && Objects.equals(fullName, employee.fullName);
+        return Double.compare(employee.salary, salary) == 0 && department == employee.department && Objects.equals(fullName, employee.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, salary, department);
+        return Objects.hash(fullName, salary, department);
     }
 }
