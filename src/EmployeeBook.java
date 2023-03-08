@@ -2,7 +2,7 @@ import java.util.*;
 
 public class EmployeeBook {
 
-    private final Map<String,Employee> employees;
+    private final Map<String, Employee> employees;
 
     public EmployeeBook(Map<String, Employee> employees) {
         this.employees = employees;
@@ -40,6 +40,10 @@ public class EmployeeBook {
 
     public Employee getEmployee(String fullName){
         return employees.get(fullName);
+    }
+
+    public Map<String, Employee> getEmployees(){
+        return employees;
     }
 
     public void setSalary(Employee employee, double salary){
